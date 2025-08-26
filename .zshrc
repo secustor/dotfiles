@@ -42,10 +42,6 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # JAVA
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
-# K0sctl
-source <(k0sctl completion zsh)
-# source <(k0s completion zsh)
-
 # Kubectl
 alias k=kubectl
 source <(kubectl completion zsh)
