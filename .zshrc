@@ -32,7 +32,7 @@ export EDITOR=vim
 alias vi=vim
 
 # Go
-export PATH=$HOME/go/bin:$PATH
+export PATH="${GOPATH:-$HOME/go}/bin:$PATH"
 
 # volta
 export VOLTA_FEATURE_PNPM=1
