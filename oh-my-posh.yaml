@@ -23,14 +23,11 @@ blocks:
           foreground: '#77E4F7'
           type: path
           style: plain
-        - template: '{{ .HEAD }} '
-          foreground: '#FFE700'
-          type: git
+        - foreground: '#FFE700'
+          type: git # https://ohmyposh.dev/docs/segments/scm/git
           style: plain
-#        - template: '❯ '
-#          foreground: '#43D426'
-#          type: text
-#          style: plain
+          properties:
+            fetch_status: true
 
     - type: prompt
       alignment: left
