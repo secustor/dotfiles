@@ -5,20 +5,28 @@ export ZSH="$HOME/.oh-my-zsh"
 
 zstyle ':omz:update' mode auto      # update automatically without asking
 
-plugins=(git fzf brew gh docker docker-compose git-extras kubectl web-search)
+plugins=(
+    git
+    fzf
+    brew
+    gh
+    docker
+    docker-compose
+    git-extras
+    kubectl
+    web-search
+)
 
 ## loading this before as we need it before omz is inialized
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 source $ZSH/oh-my-zsh.sh
 
-# Oh My Posh
-eval "$(oh-my-posh init zsh --config "$DOTFILES_DIR/oh-my-posh.yaml")"
+# Starship
+export STARSHIP_CONFIG="$DOTFILES_DIR/starship.toml"
+eval "$(starship init zsh)"
 
 # General
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# alias bua='brew update && brew upgrade'
-
 
 # ls
 alias ls='ls --color'
