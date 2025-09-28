@@ -4,16 +4,18 @@
 right_format = """$cmd_duration$time"""
 
 [cmd_duration]
-format = '⏱️[$duration]($style) '
+format = '[$duration]($style)-'
 
 [directory]
-repo_root_style = "bold yellow"
-# show initials
-# fish_style_pwd_dir_length = 3
+truncation_symbol = "/../"
 
 [git_branch]
 # remove leading 'on'
 format = '[$symbol$branch(:$remote_branch)]($style) '
+style = "yellow"
+
+[git_status]
+style = "yellow"
 
 [line_break]
 disabled = false
@@ -21,3 +23,4 @@ disabled = false
 [time]
 disabled = false
 format = '[$time]($style) '
+style = 'bold cyan'
