@@ -7,7 +7,22 @@ right_format = """$cmd_duration$time"""
 format = '[$duration]($style)-'
 
 [directory]
-truncation_symbol = "/../"
+# do not trunc to see which namespace the repo is from
+truncate_to_repo = false
+# show up to 8 nested folders
+truncation_length = 8
+
+[directory.substitutions]
+# shorten repo dirs
+'~/repos/secustor' = '+/s'
+'~/repos/n26' = '+/n'
+'~/repos/quellify' = '+/q'
+
+[docker_context]
+disabled = true
+
+[nodejs]
+disabled = true
 
 [git_branch]
 # remove leading 'on'
