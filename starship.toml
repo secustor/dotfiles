@@ -21,9 +21,6 @@ truncation_length = 8
 [docker_context]
 disabled = true
 
-[nodejs]
-disabled = true
-
 [git_branch]
 # remove leading 'on'
 format = '[$symbol$branch(:$remote_branch)]($style) '
@@ -32,8 +29,14 @@ style = "yellow"
 [git_status]
 style = "yellow"
 
+[golang]
+disabled = true
+
 [line_break]
 disabled = false
+
+[nodejs]
+disabled = true
 
 [time]
 disabled = false
