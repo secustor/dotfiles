@@ -38,6 +38,12 @@ disabled = false
 [nodejs]
 disabled = true
 
+[package]
+disabled = true
+
+[python]
+disabled = true
+
 [time]
 disabled = false
 format = '[$time]($style) '
