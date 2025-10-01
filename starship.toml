@@ -44,6 +44,9 @@ disabled = true
 [python]
 disabled = true
 
+[terraform]
+disabled = true
+
 [time]
 disabled = false
 format = '[$time]($style) '
