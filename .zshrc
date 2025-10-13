@@ -63,3 +63,6 @@ alias kctx=kubectx
 alias kns=kubens
 compdef kctx='kubectx'
 compdef kns='kubens'
+
+# Node.Js
+export NODE_OPTIONS="--max-old-space-size=8192" 
