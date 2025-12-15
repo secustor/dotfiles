@@ -14,6 +14,7 @@ plugins=(
     docker-compose
     git-extras
     kubectl
+    mise
     web-search
 )
 
@@ -42,11 +43,6 @@ alias vi=vim
 # Go
 export PATH="${GOPATH:-$HOME/go}/bin:$PATH"
 
-# volta
-export VOLTA_FEATURE_PNPM=1
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
 # JAVA
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
@@ -64,5 +60,4 @@ alias kns=kubens
 compdef kctx='kubectx'
 compdef kns='kubens'
 
-# Node.Js
 export NODE_OPTIONS="--max-old-space-size=8192" 
