@@ -1,0 +1,25 @@
+# Git switch with fzf integration
+
+unalias gsw 2>/dev/null  # Remove Oh-My-Zsh git plugin alias
+
+gsw() {
+  if [[ $# -gt 0 ]]; then
+    # If parameters provided, pass directly to git switch
+    git switch "$@"
+  else
+    # No parameters: use fzf for interactive selection
+    local branch
+    branch=$(git branch | sed 's/^[* ]*//' | fzf --height 40% --reverse)
+    if [[ -n "$branch" ]]; then
+      git switch "$branch"
+    fi
+  fi
+}
+
+# Custom completion for gsw
+_gsw() {
+  local -a branches
+  branches=(${(f)"$(git branch 2>/dev/null | sed 's/^[* ]*//')"})
+  _describe 'branch' branches
+}
+compdef _gsw gsw

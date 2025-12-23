@@ -60,4 +60,7 @@ alias kns=kubens
 compdef kctx='kubectx'
 compdef kns='kubens'
 
+# Git fzf integration
+source "$DOTFILES_DIR/zsh/gsw"
+
 export NODE_OPTIONS="--max-old-space-size=8192" 
