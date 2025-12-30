@@ -46,6 +46,9 @@ export PATH="${GOPATH:-$HOME/go}/bin:$PATH"
 # JAVA
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
+# Mise
+eval "$(mise activate zsh)"
+
 # Kubectl
 alias k=kubectl
 source <(kubectl completion zsh)
