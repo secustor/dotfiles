@@ -40,6 +40,10 @@ alias lf='ls -haltr'
 export EDITOR=vim
 alias vi=vim
 
+# Homebrew
+## Disable hints
+export HOMEBREW_NO_ENV_HINTS=1
+
 # Go
 export PATH="${GOPATH:-$HOME/go}/bin:$PATH"
 
