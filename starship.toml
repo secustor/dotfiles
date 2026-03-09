@@ -21,6 +21,9 @@ truncation_length = 8
 [docker_context]
 disabled = true
 
+[gcloud]
+disabled = true
+
 [git_branch]
 # remove leading 'on'
 format = '[$symbol$branch(:$remote_branch)]($style) '
