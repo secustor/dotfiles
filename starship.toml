@@ -47,6 +47,9 @@ disabled = true
 [python]
 disabled = true
 
+[rust]
+disabled = true
+
 [terraform]
 disabled = true
 
