@@ -1,0 +1,42 @@
+# Git branch delete with fzf integration
+
+unalias gbd 2>/dev/null  # Remove Oh-My-Zsh git plugin alias
+unalias gbD 2>/dev/null
+
+_gbd_list_branches() {
+  local current
+  current=$(git branch --show-current 2>/dev/null)
+  git branch 2>/dev/null | sed 's/^[* ]*//' | grep -v "^${current}$"
+}
+
+gbd() {
+  if [[ $# -gt 0 ]]; then
+    git branch --delete "$@"
+  else
+    local -a branches
+    branches=(${(f)"$(_gbd_list_branches | fzf --multi --height 40% --reverse)"})
+    if [[ ${#branches[@]} -gt 0 ]]; then
+      git branch --delete "${branches[@]}"
+    fi
+  fi
+}
+
+gbD() {
+  if [[ $# -gt 0 ]]; then
+    git branch --delete --force "$@"
+  else
+    local -a branches
+    branches=(${(f)"$(_gbd_list_branches | fzf --multi --height 40% --reverse)"})
+    if [[ ${#branches[@]} -gt 0 ]]; then
+      git branch --delete --force "${branches[@]}"
+    fi
+  fi
+}
+
+_gbd() {
+  local -a branches
+  branches=(${(f)"$(_gbd_list_branches)"})
+  _describe 'branch' branches
+}
+compdef _gbd gbd
+compdef _gbd gbD

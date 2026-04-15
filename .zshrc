@@ -69,5 +69,6 @@ compdef kns='kubens'
 
 # Git fzf integration
 source "$DOTFILES_DIR/zsh/gsw"
+source "$DOTFILES_DIR/zsh/gbd"
 
 export NODE_OPTIONS="--max-old-space-size=8192" 
