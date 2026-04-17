@@ -71,4 +71,7 @@ compdef kns='kubens'
 source "$DOTFILES_DIR/zsh/gsw"
 source "$DOTFILES_DIR/zsh/gbd"
 
+alias grp='git remote prune' 
+alias grpo='git remote prune origin' 
+
 export NODE_OPTIONS="--max-old-space-size=8192" 
