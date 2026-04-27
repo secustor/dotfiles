@@ -20,4 +20,7 @@ git clone git@github.com:secustor/dotfiles.git
 # Update your dotfiles
 sed -i '1isource <repos path>/.zshrc' .zshrc
 sed -i '1isource <repos path>/.vimrc' .vimrc
+
+# Add gitconfig include
+sed -i -e '$a\\n[include]\n    path = ~/repos/secustor/dotfiles/gitconfig' ~/.gitconfig
 ```

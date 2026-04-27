@@ -1,0 +1,15 @@
+[gpg]
+	format = ssh
+[push]
+	autoSetupRemote = true
+[commit]
+	gpgsign = true
+[core]
+	excludesFile = ~/.gitignore
+
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+
+[pull]
+	rebase = true
+
