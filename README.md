@@ -22,5 +22,8 @@ sed -i '1isource <repos path>/.zshrc' .zshrc
 sed -i '1isource <repos path>/.vimrc' .vimrc
 
 # Add gitconfig include
-sed -i -e '$a\\n[include]\n    path = ~/repos/secustor/dotfiles/gitconfig' ~/.gitconfig
+sed -i -e '$a\\n[include]\n    path = <repos path>/gitconfig' ~/.gitconfig
+
+# Add Ghostty include command
+echo "config-file = <repos path>/ghostty.config"
 ```
