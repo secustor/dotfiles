@@ -10,6 +10,20 @@ This is where I store my custom configuration files for various tools and enviro
 > These configurations are designed **exclusively for my personal use**.
 > Feel free to explore and get inspiration, but please use with caution and adapt configurations to suit your own setup if needed!​
 
+## Homebrew Packages
+
+A `Brewfile` is included to install all required CLI tools and applications via [Homebrew Bundle](https://docs.brew.sh/Brew-Bundle-and-Brewfile):
+
+```shell
+brew bundle install
+```
+
+To check whether all packages are already installed:
+
+```shell
+brew bundle check
+```
+
 ## Usage
 
 ```shell
