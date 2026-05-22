@@ -1,10 +1,4 @@
 # =============================================================================
-# Taps
-# =============================================================================
-
-tap "goreleaser/tap"
-
-# =============================================================================
 # Shell & Terminal
 # =============================================================================
 
@@ -13,8 +7,6 @@ brew "htop"
 brew "mise"
 brew "starship"
 brew "tmux"
-brew "tree"
-brew "viddy"
 brew "wget"
 
 # =============================================================================
@@ -25,7 +17,6 @@ brew "bfs"
 brew "fd"
 brew "hl"
 brew "jq"
-brew "ripgrep"
 
 # =============================================================================
 # Git
@@ -47,19 +38,12 @@ brew "openjdk"
 # Development Tools
 # =============================================================================
 
-brew "golangci-lint"
-brew "goreleaser/tap/goreleaser"
-brew "pdm"
 brew "pre-commit"
-brew "typescript"
-brew "typescript-language-server"
-brew "vale"
 
 # =============================================================================
 # Containers & Kubernetes
 # =============================================================================
 
-brew "colima"
 brew "dive"
 brew "docker"
 brew "docker-buildx"
@@ -73,17 +57,6 @@ brew "kubernetes-cli"
 # =============================================================================
 
 brew "awscli"
-brew "opa"
-brew "opentofu"
-brew "saml2aws"
-brew "terraform-docs"
-
-# =============================================================================
-# Documentation & Testing
-# =============================================================================
-
-brew "bats-core"
-brew "mkdocs"
 
 # =============================================================================
 # Media & Recording
@@ -91,7 +64,6 @@ brew "mkdocs"
 
 brew "agg"
 brew "asciinema"
-brew "ffmpeg"
 
 # =============================================================================
 # Casks (macOS Applications)
@@ -99,7 +71,5 @@ brew "ffmpeg"
 
 cask "1password-cli"
 cask "firefox"
-cask "gcloud-cli"
 cask "jetbrains-toolbox"
 cask "raycast"
-cask "teleport"
