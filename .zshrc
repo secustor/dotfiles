@@ -58,6 +58,9 @@ alias k=kubectl
 source <(kubectl completion zsh)
 compdef k='kubectl'
 
+# Jetbrains 
+export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
+
 # Helm
 source <(helm completion zsh)
 
