@@ -3,23 +3,51 @@
 unalias gsw 2>/dev/null  # Remove Oh-My-Zsh git plugin alias
 
 gsw() {
+  local branch
   if [[ $# -gt 0 ]]; then
-    # If parameters provided, pass directly to git switch
-    git switch "$@"
-  else
-    # No parameters: use fzf for interactive selection
-    local branch
-    branch=$(git branch | sed 's/^[* ]*//' | fzf --height 40% --reverse)
-    if [[ -n "$branch" ]]; then
-      git switch "$branch"
+    # Options (e.g. `gsw -c new`, `gsw -`) or multiple args: let git handle it.
+    if [[ "$1" == -* || $# -gt 1 ]]; then
+      git switch "$@"
+      return
     fi
+    branch="$1"
+  else
+    # No parameters: use fzf for interactive selection. Keep git's marker
+    # column (* current, + worktree) visible, then strip the 2-char marker
+    # from the chosen line.
+    local selection
+    selection=$(git branch | fzf --height 40% --reverse)
+    [[ -z "$selection" ]] && return
+    branch="${selection#[*+ ] }"
+  fi
+
+  # git refuses to check out a branch that's already live in another worktree.
+  # Detect that and offer to jump to the worktree instead of erroring out.
+  local worktree current
+  worktree=$(git worktree list --porcelain | awk -v b="refs/heads/$branch" '
+    /^worktree / { wt = substr($0, 10) }
+    $0 == "branch " b { print wt; exit }
+  ')
+  current=$(git rev-parse --show-toplevel 2>/dev/null)
+
+  if [[ -n "$worktree" && "$worktree" != "$current" ]]; then
+    echo "Branch '$branch' is checked out in another worktree:"
+    echo "  $worktree"
+    if read -q "REPLY?Jump there instead? [y/N] "; then
+      echo
+      cd "$worktree"
+    else
+      echo
+    fi
+  else
+    git switch "$branch"
   fi
 }
 
 # Custom completion for gsw
 _gsw() {
   local -a branches
-  branches=(${(f)"$(git branch 2>/dev/null | sed 's/^[* ]*//')"})
+  branches=(${(f)"$(git branch --format='%(refname:short)' 2>/dev/null)"})
   _describe 'branch' branches
 }
 compdef _gsw gsw
