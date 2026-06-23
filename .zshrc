@@ -73,6 +73,7 @@ compdef kns='kubens'
 # Git fzf integration
 source "$DOTFILES_DIR/zsh/gsw"
 source "$DOTFILES_DIR/zsh/gbd"
+source "$DOTFILES_DIR/zsh/gwtrm"
 
 alias grp='git remote prune' 
 alias grpo='git remote prune origin' 

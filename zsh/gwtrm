@@ -1,0 +1,57 @@
+# Git worktree remove with fzf integration
+
+unalias gwtrm 2>/dev/null  # Remove Oh-My-Zsh git plugin alias
+
+# Emit "path<TAB>label" for every worktree except the current one. label is the
+# checked-out branch, or "(detached)" / "(bare)" where there is no branch.
+_gwtrm_list_worktrees() {
+  local current
+  current=$(git rev-parse --show-toplevel 2>/dev/null)
+  git worktree list --porcelain 2>/dev/null | awk -v cur="$current" '
+    /^worktree / { path = substr($0, 10); branch=""; bare=0; detached=0 }
+    /^branch /   { branch = substr($0, 8); sub(/^refs\/heads\//, "", branch) }
+    /^bare$/     { bare=1 }
+    /^detached$/ { detached=1 }
+    /^$/ {
+      if (path != cur) {
+        label = branch
+        if (bare) label = "(bare)"
+        else if (detached) label = "(detached)"
+        printf "%s\t%s\n", path, label
+      }
+    }
+  '
+}
+
+gwtrm() {
+  if [[ $# -gt 0 ]]; then
+    # Explicit args (paths, --force, ...): let git handle it.
+    git worktree remove "$@"
+    return
+  fi
+
+  # No parameters: use fzf for interactive selection. Show "branch  path" but
+  # carry the path along (tab-separated) so we can extract it back. The current
+  # worktree is omitted since git refuses to remove the one you're standing in.
+  local -a selections
+  selections=(${(f)"$(_gwtrm_list_worktrees | \
+    fzf --multi --height 40% --reverse --delimiter='\t' --with-nth=2,1)"})
+
+  (( ${#selections[@]} == 0 )) && return
+
+  # NB: avoid the name `path` here — in zsh it is tied to $PATH and assigning it
+  # would clobber the command search path.
+  local line wt
+  for line in "${selections[@]}"; do
+    wt="${line%%$'\t'*}"
+    git worktree remove "$wt"
+  done
+}
+
+# Custom completion for gwtrm
+_gwtrm() {
+  local -a worktrees
+  worktrees=(${(f)"$(_gwtrm_list_worktrees | sed 's/\t.*//')"})
+  _describe 'worktree' worktrees
+}
+compdef _gwtrm gwtrm
