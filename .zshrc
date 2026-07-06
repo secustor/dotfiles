@@ -36,6 +36,9 @@ alias la='ls -A'
 alias l='ls -CF'
 alias lf='ls -haltr'
 
+# Disk usage of items in current dir, largest first
+alias duh='du -sh * | sort -k1 -rh'
+
 # Editor
 export EDITOR=vim
 alias vi=vim
