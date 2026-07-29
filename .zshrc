@@ -77,6 +77,7 @@ compdef kns='kubens'
 source "$DOTFILES_DIR/zsh/gsw"
 source "$DOTFILES_DIR/zsh/gbd"
 source "$DOTFILES_DIR/zsh/gwtrm"
+source "$DOTFILES_DIR/zsh/gprall"
 
 alias grp='git remote prune' 
 alias grpo='git remote prune origin' 

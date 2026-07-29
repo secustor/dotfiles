@@ -1,0 +1,83 @@
+# Git prune all: drop stale remote refs, remove worktrees holding finished
+# branches, then delete every local branch whose upstream is gone.
+#
+#   gprall              prune + remove worktrees + delete branches
+#   gprall --dry-run    preview every action, change nothing (also: -n)
+
+unalias gprall 2>/dev/null  # In case a plugin ever defines it
+
+gprall() {
+  local dry_run=0
+  [[ "$1" == "--dry-run" || "$1" == "-n" ]] && dry_run=1
+
+  # Declare every local once, up front. Re-declaring an existing local with a
+  # bare `local name` makes zsh echo "name=..." to stdout. Also avoid a local
+  # named `path` — in zsh it is tied to $PATH (see zsh/gwtrm).
+  local -a gone would_prune
+  local prune_out branch upstream current wt
+
+  if (( dry_run )); then
+    echo "Pruning origin (dry run)..."
+    prune_out=$(git remote prune --dry-run origin)
+    print -r -- "$prune_out"
+    # Refs a real prune would drop, e.g. "origin/feat/foo".
+    would_prune=(${(f)"$(print -r -- "$prune_out" | awk '/\[would prune\]/ {print $NF}')"})
+  else
+    echo "Pruning origin..."
+    git remote prune origin
+  fi
+
+  # Local branches already flagged as gone (merged/deleted on the remote).
+  # NB: `cut -c 3-` strips the marker column BEFORE awk — a branch checked out
+  # in another worktree is marked "+", so without this awk would return "+"
+  # instead of the branch name. Those worktree branches are exactly our target.
+  gone=(${(f)"$(LANG=C git branch --no-color -vv | grep ": gone\]" | cut -c 3- | awk '{print $1}')"})
+
+  # Dry-run only: branches aren't flagged ": gone]" until the prune actually
+  # runs, so also fold in any branch tracking a ref that WOULD be pruned.
+  if (( dry_run )) && (( ${#would_prune[@]} )); then
+    while read -r branch upstream; do
+      [[ -n "$upstream" ]] && (( ${would_prune[(Ie)$upstream]} )) && gone+=("$branch")
+    done < <(git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads/)
+  fi
+
+  gone=(${(u)gone})  # dedup
+
+  if (( ${#gone[@]} == 0 )); then
+    echo "No finished branches to prune."
+    return
+  fi
+
+  current=$(git branch --show-current 2>/dev/null)
+
+  for branch in "${gone[@]}"; do
+    # Never delete the branch we're standing on.
+    if [[ "$branch" == "$current" ]]; then
+      echo "Skipping current branch: $branch"
+      continue
+    fi
+
+    # If the branch is live in a worktree, that worktree must be removed first.
+    wt=$(git worktree list --porcelain | awk -v b="refs/heads/$branch" '
+      /^worktree / { wt = substr($0, 10) }
+      $0 == "branch " b { print wt; exit }
+    ')
+
+    if (( dry_run )); then
+      [[ -n "$wt" ]] && echo "Would remove worktree $wt (holds $branch)"
+      echo "Would delete branch $branch"
+      continue
+    fi
+
+    # --force so untracked build artifacts (common in .claude/worktrees/wf_*)
+    # don't block removal.
+    if [[ -n "$wt" ]]; then
+      echo "Removing worktree $wt (holds $branch)"
+      git worktree remove --force "$wt"
+    fi
+    git branch -D "$branch"
+  done
+
+  # Tidy any leftover worktree admin metadata for dirs already gone from disk.
+  (( dry_run )) || git worktree prune
+}
