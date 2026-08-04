@@ -79,7 +79,10 @@ source "$DOTFILES_DIR/zsh/gbd"
 source "$DOTFILES_DIR/zsh/gwtrm"
 source "$DOTFILES_DIR/zsh/gprall"
 
-alias grp='git remote prune' 
-alias grpo='git remote prune origin' 
+alias grp='git remote prune'
+alias grpo='git remote prune origin'
+
+# Fixup the last commit
+alias gcfuh='git commit --fixup HEAD'
 
 export NODE_OPTIONS="--max-old-space-size=8192" 
