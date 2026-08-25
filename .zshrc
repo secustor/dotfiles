@@ -86,3 +86,9 @@ alias grpo='git remote prune origin'
 alias gcfuh='git commit --fixup HEAD'
 
 export NODE_OPTIONS="--max-old-space-size=8192" 
+
+# Claude Code background sessions
+alias ccb='claude --bg'
+alias ccbs='claude --bg --model sonnet'
+alias ccbo='claude --bg --model opus'
+alias ccbf='claude --bg --model fable'
