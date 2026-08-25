@@ -36,6 +36,12 @@ alias la='ls -A'
 alias l='ls -CF'
 alias lf='ls -haltr'
 
+# Claude
+alias ccb='claude --bg'
+alias ccbs='claude --bg --model sonnet'
+alias ccbo='claude --bg --model opus'
+alias ccbf='claude --bg --model fable'
+
 # Disk usage of items in current dir, largest first
 alias duh='du -sh * | sort -k1 -rh'
 
