@@ -37,6 +37,7 @@ alias l='ls -CF'
 alias lf='ls -haltr'
 
 # Claude
+alias cca='claude agents'
 alias ccb='claude --bg'
 alias ccbs='claude --bg --model sonnet'
 alias ccbo='claude --bg --model opus'
