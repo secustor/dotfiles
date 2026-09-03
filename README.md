@@ -40,4 +40,7 @@ sed -i -e '$a\\n[include]\n    path = <repos path>/gitconfig' ~/.gitconfig
 
 # Add Ghostty include command
 echo "config-file = <repos path>/ghostty.config"
+
+# Link the global Claude Code instructions
+ln -sf <repos path>/claude/CLAUDE.md ~/.claude/CLAUDE.md
 ```
