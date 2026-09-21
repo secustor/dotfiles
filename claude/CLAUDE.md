@@ -7,6 +7,7 @@
 <pull-request>
 - Use `gh stack --help´ to create stacks of PRs which are build on top of each other
 - Always create draft PRs unless otherwise requested 
+- Always keep PR bodies very short and start with a maximum sentence long explanation of the intent. E.g. "Allowing users to self approve their own changes" instead of "removed team restriction in foo.yml" 
 </pull-request>
 
 <writing-density>
