@@ -26,9 +26,6 @@ source $ZSH/oh-my-zsh.sh
 export STARSHIP_CONFIG="$DOTFILES_DIR/starship.toml"
 eval "$(starship init zsh)"
 
-# General
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # ls
 alias ls='ls --color'
 alias ll='ls -alFh'
@@ -93,3 +90,7 @@ alias grpo='git remote prune origin'
 alias gcfuh='git commit --fixup HEAD'
 
 export NODE_OPTIONS="--max-old-space-size=8192" 
+
+# Drop duplicate PATH entries, keeping the first; nested login shells and `export PATH=...:$PATH` re-add them
+typeset -U path
+path=($path)
