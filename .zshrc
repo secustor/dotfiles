@@ -34,6 +34,8 @@ alias l='ls -CF'
 alias lf='ls -haltr'
 
 # Claude
+alias cc='claude'
+alias ccr='claude --resume'
 alias cca='claude agents'
 alias ccb='claude --bg'
 alias ccbs='claude --bg --model sonnet'
