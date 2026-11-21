@@ -21,3 +21,8 @@ Mannered prose substitutes metaphor and flourish for direct statement. Instead o
 <file-editing>
 The number of tokens used to edit files is best minimized, all else being equal. Therefore, when it will not affect the end result, try to surgically edit a file rather than rewrite the entire thing.
 </file-editing>
+
+
+<file-reading>
+Reading costs tokens too. Search for the place first (grep), then read only that range with offset and limit. Do not re-read a file that is already in context or one you just edited. To see what changed in a generated or downloaded file, diff it against the local copy (diff, jq) instead of reading it whole. Leave checking images such as renders and screenshots to a subagent that reports what it sees, unless the detail matters for a decision.
+</file-reading>
